@@ -5,7 +5,7 @@
             v-for="option in options">
 
                 <button class="option"
-                @click="$emit('handle-outcome', option.outcome)">
+                @click="handleOutcome(option.outcome)">
                     {{ option.text }}
                 </button>
 
@@ -14,12 +14,29 @@
     </div>
 </template>
 
+
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: "EventOptions",
-    props: ["options"]
+    props: ["options"],
+    computed: {
+        ...mapState({
+            events: 'events'
+        })
+    },
+    methods: {
+        handleOutcome(outcome) {
+            const newEvent = this.events[outcome]
+            console.log("test")
+            console.log(newEvent)
+            this.$store.commit('swapCurrentEvent', newEvent)
+        }
+    }
 }
 </script>
+
 
 <style>
 #EventOptions > li {

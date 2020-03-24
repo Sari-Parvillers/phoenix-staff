@@ -1,3 +1,5 @@
+// TODO: Organize events into event chains
+
 export default {
     gameStart: {
         text: [
@@ -8,7 +10,10 @@ export default {
         options: [{
             id: 1,
             text: 'Start',
-            outcome: 'introduction1'
+            outcome: 'introduction1',
+            cost: {
+                stamina: 8
+            }
         }]
     },
 
@@ -24,6 +29,33 @@ export default {
             id: 1,
             text: 'Continue',
             outcome: 'introduction2'
+        }]
+    }
+}
+
+export const template = {
+    eventName: {
+        text: [
+            'Paragraph1',
+
+            'Paragraph2',
+
+            'Paragraph3'
+        ],
+        options: [{
+            id: 1,
+            text: 'Dummy option text',
+            outcome: 'anotherEventName',
+            cost: {
+                stamina: 1,
+                gold: 2,
+                food: 3
+            },
+            flags: {
+                setTrue: 'choseOption1',
+                setFalse: 'didNotChooseOptionYet',
+                required: ''
+            }
         }]
     }
 }

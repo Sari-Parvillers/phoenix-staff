@@ -1,21 +1,21 @@
 <template>
   <div id="app">
     <Header />
-    <EventBox />
+    <EventPage />
     <Footer />
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
-import EventBox from './components/EventBox.vue'
+import EventPage from './components/EventPage.vue'
 import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    EventBox,
+    EventPage,
     Footer
   }
 }
@@ -52,11 +52,5 @@ header {
 #EventBox {
   font-size: 1.4rem;
   margin: 1rem 0 0 1rem;
-}
-
-#Footer {
-  padding: 5px;
-  position: absolute;
-  bottom: 0px
 }
 </style>

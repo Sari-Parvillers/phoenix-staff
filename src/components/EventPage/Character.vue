@@ -1,11 +1,7 @@
 <template>
     <aside id="Character">
         <section>
-            <ul id="CharacterStats">
-                <li id="stamina">Stamina</li>
-                <li>Gold</li>
-                <li>Food</li>
-            </ul>
+            <Resources />
             <div id="ButtonContainer" class="Container">
                 <Button id="InventoryButton"> Inventory </Button>
             </div>
@@ -13,11 +9,28 @@
     </aside>
 </template>
 
+
 <script>
+import { mapState } from 'vuex'
+
+import Resources from "./Character/ResourceList.vue"
+
+
 export default {
-    name: 'Character'
+    name: 'Character',
+    components: {
+        Resources
+    },
+    computed: {
+        ...mapState([
+            'gameState'
+        ])
+    }
 }
+// TODO: show attributes, inventory, status, traits
+// TODO: show tooltips for attributes, inventory, status, traits
 </script>
+
 
 <style>
 #Character {
@@ -37,13 +50,13 @@ export default {
     margin: 0.5rem;
 }
 
-#CharacterStats {
+#Resources {
     list-style: none;
     margin: 0.5rem;
     padding: 0;
 }
 
-#CharacterStats > li {
+#Resources > li {
     margin-bottom: 0.5rem
 }
 </style>
