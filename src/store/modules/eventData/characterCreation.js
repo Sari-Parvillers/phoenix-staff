@@ -8,9 +8,8 @@ export default {
         options: [{
             id: 1,
             text: 'Start',
-            outcome: 'introduction1',
-            cost: {
-                stamina: 8
+            outcome: {
+                newEvent: 'introduction1'
             }
         }]
     },
@@ -24,7 +23,11 @@ export default {
         options: [{
             id: 1,
             text: 'Continue',
-            outcome: 'introduction2'
+            outcome: {
+                newEvent: {
+                    newEvent: 'introduction2'
+                }
+            }
         }]
     }
 }

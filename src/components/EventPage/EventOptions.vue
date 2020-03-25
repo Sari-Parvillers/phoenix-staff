@@ -16,7 +16,7 @@
 
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
     name: "EventOptions",
@@ -26,12 +26,25 @@ export default {
             events: 'events'
         })
     },
+
+
     methods: {
+        ...mapMutations([
+            'swapCurrentEvent',
+            'increaseResource',
+            'decreaseResource'
+        ]),
         handleOutcome(outcome) {
-            const newEvent = this.events[outcome]
-            console.log("test")
-            console.log(newEvent)
-            this.$store.commit('swapCurrentEvent', newEvent)
+            const newEvent = this.events[outcome.newEvent]
+            this.swapCurrentEvent(newEvent)
+
+            if (outcome.gain) {
+                this.increaseResource(outcome.gain)
+            }
+            if (outcome.cost) {
+                this.decreaseResource(outcome.cost)
+            }
+
         }
     }
 }

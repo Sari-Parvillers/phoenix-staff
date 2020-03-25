@@ -5,30 +5,12 @@ import resources from "./character/resources.js"
 import status from "./character/status.js"
 import traits from "./character/traits.js"
 
+import events from "./events.js"
+
 const state = {
-    // The event at which the player is right now
-    currentEvent: {
-        text: [
-            `The Quest for the Phoenix Staff`,
-
-            `This adventure will take place in the world of Lurnaxis. To play, click on the options below, or use arrow keys, or tab, or any of the number keys, to choose an option. You also have an inventory, sometimes you will be able to use an item you have at any time.`
-        ],
-        options: [{
-            id: 1,
-            text: 'Start',
-            outcome: 'introduction1',
-            cost: {
-                stamina: 8
-            }
-        }]
-    },
-
-    // Character data
-    attributes,
-    inventory,
-    resources,
-    status,
-    traits,
+    // currentEvent is the mutable property for the event at which the player is right now
+    // The event below is the starting event.
+    currentEvent: events.state.gameStart,
 
     // Important event flags that enable or disable or modify events and event options
     flags: {}
@@ -63,13 +45,23 @@ const actions = {}
 const mutations = {
     swapCurrentEvent(state, newEvent) {
         console.assert(typeof newEvent == 'object', 'swapCurrentEvent error, argument should be an object')
+
         state.currentEvent = newEvent
     }
+}
+
+const modules = {
+    attributes,
+    inventory,
+    resources,
+    status,
+    traits
 }
 
 export default {
     state,
     getters,
     actions,
-    mutations
+    mutations,
+    modules
 }

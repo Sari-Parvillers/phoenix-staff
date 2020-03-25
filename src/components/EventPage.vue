@@ -4,8 +4,7 @@
             <EventInformation />
             <EventText :paragraphs="paragraphs" />
             <EventOptions
-            :options="currentEvent.options"
-            @handle-outcome="handleOutcome" />
+            :options="currentEvent.options" />
         </div>
         <div class="spacer"></div>
         <Character></Character>
@@ -43,14 +42,7 @@ export default {
     },
 
 
-    methods: {
-        handleOutcome(outcome) {
-            this.currentEvent = this.events[outcome]
-        },
-        write(text) {
-            console.log(text)
-        }
-    }
+    methods: {}
 }
 </script>
 
