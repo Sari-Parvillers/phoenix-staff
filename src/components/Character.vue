@@ -1,11 +1,10 @@
 <template>
     <aside id="Character">
-        <section>
-            <Resources />
-            <div id="ButtonContainer" class="Container">
-                <Button id="InventoryButton"> Inventory </Button>
-            </div>
-        </section>
+        <Resources />
+        <div id="ButtonContainer" class="Container">
+            <Button id="InventoryButton"> Inventory </Button>
+            <Button id="TraitsButton"> Traits </Button>
+        </div>
     </aside>
 </template>
 
@@ -35,10 +34,7 @@ export default {
 <style>
 #Character {
     font-size: 1.25rem;
-}
-
-#Character > section {
-    border: 2px solid lightgrey;
+    border: 2px solid lightgrey
 }
 
 #ButtonContainer {
@@ -46,7 +42,7 @@ export default {
     justify-content: center;
 }
 
-#InventoryButton {
+#ButtonContainer > button {
     margin: 0.5rem;
 }
 

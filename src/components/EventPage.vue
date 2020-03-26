@@ -1,23 +1,30 @@
 <template>
-    <main id="EventBox">
-        <div>
-            <EventInformation />
-            <EventText :paragraphs="paragraphs" />
-            <EventOptions
-            :options="currentEvent.options" />
-        </div>
-        <div class="spacer"></div>
-        <Character></Character>
+    <main id="EventPage">
+        <article id="event" class="grid-container">
+            <Title :title="currentEvent.title" />
+
+            <Paragraph
+            v-for="paragraph in paragraphs"
+            :key="paragraph.id"
+            :paragraph="paragraph.text" />
+
+            <Options :options="currentEvent.options" />
+        </article>
+
+        <div class="spacer" />
+
+        <Character />
     </main>
 </template>
 
 
 <script>
 // TODO: Google "media queries" and "responsive design"
-import EventText from './EventPage/EventText.vue'
-import EventInformation from './EventPage/Information.vue'
-import Character from './EventPage/Character.vue'
-import EventOptions from './EventPage/EventOptions.vue'
+import Title from './EventPage/Title.vue'
+import Paragraph from './EventPage/Paragraph.vue'
+import Options from './EventPage/Options.vue'
+
+import Character from './Character.vue'
 
 import { mapGetters } from 'vuex'
 
@@ -27,10 +34,10 @@ export default {
 
 
     components: {
-        EventText,
-        EventInformation,
+        Title,
+        Paragraph,
         Character,
-        EventOptions
+        Options
     },
 
 
@@ -47,13 +54,14 @@ export default {
 </script>
 
 
-<style scoped>
+<style>
 .spacer {
-    border-left: 2px solid grey;
+    /* border-top: 2px solid grey; */
 }
 
-#EventBox {
-    display: grid;
-    grid-template-columns: auto 1rem 12rem;
+#EventPage {
+    display: block;
+    font-size: 120%;
+    margin: 5% 5% 0 5%;
 }
 </style>

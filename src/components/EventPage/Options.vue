@@ -1,17 +1,15 @@
 <template>
-    <div>
-        <ol id="EventOptions">
-            <li :key="option.id"
-            v-for="option in options">
+    <ol id="EventOptions">
+        <li :key="option.id"
+        v-for="option in options">
 
-                <button class="option"
-                @click="handleOutcome(option.outcome)">
-                    {{ option.text }}
-                </button>
+            <button class="option"
+            @click="handleOutcome(option.outcome)">
+                {{ option.text }}
+            </button>
 
-            </li>
-        </ol>
-    </div>
+        </li>
+    </ol>
 </template>
 
 
@@ -19,7 +17,7 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-    name: "EventOptions",
+    name: "Options",
     props: ["options"],
     computed: {
         ...mapState({

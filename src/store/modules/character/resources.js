@@ -18,6 +18,25 @@ const state = {
 }
 
 
+const getters = {
+    resourceList: function(state) {
+        const resourceArray = []
+        let index = 0
+
+        for (let resource in state) {
+            resourceArray[index] = {
+                id: index,
+                amount: state[resource].amount,
+                description: state[resource].description,
+                name: state[resource].name
+            }
+            index++
+        }
+        return resourceArray
+    }
+}
+
+
 const actions = {
 
 }
@@ -47,6 +66,7 @@ const mutations = {
 
 export default {
     state,
+    getters,
     actions,
     mutations
 }

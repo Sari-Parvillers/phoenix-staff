@@ -1,5 +1,7 @@
 export const template = {
     eventName: {
+        title: 'Title of the event',
+
         text: [
             'paragraph1',
 
@@ -13,10 +15,20 @@ export const template = {
                 newEvent: 'outcomeEventName',
                 cost: {},
                 gain: {}
+            },
+            // Todos below
+            flags: {
+                enable: {},
+                disable: {}
+            },
+            conditions: {
+                flags: {},
+                attributes: {}
             }
         },
+
         {
-            // Without any optional keys
+            // Option without any optional keys
             id: 2,
             text: "optionText2",
             outcome: {

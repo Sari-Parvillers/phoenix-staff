@@ -1,8 +1,7 @@
 export default {
     gameStart: {
+        title: 'The Quest for the Phoenix Staff',
         text: [
-            `The Quest for the Phoenix Staff`,
-
             `This adventure will take place in the world of Lurnaxis. To play, click on the options below, or use arrow keys, or tab, or any of the number keys, to choose an option. You also have an inventory, sometimes you will be able to use an item you have at any time.`
         ],
         options: [{
@@ -15,6 +14,7 @@ export default {
     },
 
     introduction1: {
+        title: 'Introduction',
         text: [
             `In the City of Lurn, the great Archmage Novina has recently made important discoveries. The city used to be blessed by Phoenixes, and contained what she has come to call the “Phoenix Staff”.`,
 

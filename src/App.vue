@@ -48,9 +48,4 @@ header {
   font-size: 1.1rem;
   padding: 5px;
 }
-
-#EventBox {
-  font-size: 1.4rem;
-  margin: 1rem 0 0 1rem;
-}
 </style>
