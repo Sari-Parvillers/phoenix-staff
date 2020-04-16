@@ -4,9 +4,9 @@
             <Title :title="currentEvent.title" />
 
             <Paragraph
-            v-for="paragraph in paragraphs"
-            :key="paragraph.id"
-            :paragraph="paragraph.text" />
+            v-for="(paragraph, index) in currentEvent.text"
+            :key="index"
+            :paragraph="paragraph" />
 
             <Options :options="currentEvent.options" />
         </article>
@@ -43,8 +43,7 @@ export default {
 
     computed: {
         ...mapGetters({
-           currentEvent: 'currentEvent',
-           paragraphs: 'currentEventParsedParagraphs'
+           currentEvent: 'currentEvent'
         })
     },
 
@@ -55,13 +54,29 @@ export default {
 
 
 <style>
-.spacer {
-    /* border-top: 2px solid grey; */
+/* .spacer {
+    border-top: 2px solid grey;
+} */
+
+
+#EventTitle {
+    font-family: serif;
+    font-size: 130%;
+    font-weight: normal;
+    font-style: italic;
+}
+
+#EventOptions {
+    font-size: 120%;
 }
 
 #EventPage {
     display: block;
-    font-size: 120%;
-    margin: 5% 5% 0 5%;
+    font-size: 16px;
+    /* margin: 5% 5% 0 5%; */
+    margin: auto;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+    max-width: 960px;
 }
 </style>

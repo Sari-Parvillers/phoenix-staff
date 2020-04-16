@@ -1,28 +1,39 @@
 <template>
     <aside id="Character">
-        <Resources />
-        <div id="ButtonContainer" class="Container">
-            <Button id="InventoryButton"> Inventory </Button>
-            <Button id="TraitsButton"> Traits </Button>
-        </div>
+        <section id="character-resources" class="character-container">
+            <CharList :list="resources" />
+        </section>
+
+        <section id="character-attributes" class="character-container">
+            <CharList :list="attributes" />
+        </section>
+
+        <Button id="InventoryButton"> Inventory </Button>
+        <Button id="TraitsButton"> Traits </Button>
+
     </aside>
 </template>
 
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
-import Resources from "./Character/ResourceList.vue"
+import CharList from "./Character/&-CharList.vue"
 
 
 export default {
     name: 'Character',
     components: {
-        Resources
+        CharList
     },
     computed: {
         ...mapState([
             'gameState'
+        ]),
+        ...mapGetters([
+            'attributes',
+            'resources',
+            'test'
         ])
     }
 }
@@ -30,29 +41,29 @@ export default {
 // TODO: show tooltips for attributes, inventory, status, traits
 </script>
 
+<style scoped>
+aside {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+button {
+    margin: 0.5rem;
+}
+</style>
 
 <style>
 #Character {
-    font-size: 1.25rem;
-    border: 2px solid lightgrey
+        border: 2px solid lightgrey
 }
 
 #ButtonContainer {
     display: flex;
     justify-content: center;
-}
-
-#ButtonContainer > button {
-    margin: 0.5rem;
-}
-
-#Resources {
-    list-style: none;
-    margin: 0.5rem;
-    padding: 0;
-}
-
-#Resources > li {
-    margin-bottom: 0.5rem
 }
 </style>

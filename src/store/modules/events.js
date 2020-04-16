@@ -2,10 +2,12 @@ import characterCreation from "./eventData/characterCreation.js"
 
 
 const state = {
-    ...characterCreation
+    ...characterCreation.state
 }
 
-const getters = {}
+const getters = {
+    ...characterCreation.getters
+}
 
 const actions = {}
 

@@ -1,6 +1,6 @@
 <template>
     <footer id="Footer">
-        Check my tumblr XD
+        !! Footer here !!
     </footer>
 </template>
 
@@ -14,8 +14,7 @@ export default {
 
 <style>
 footer {
-  padding: 5px;
-  position: fixed;
-  bottom: 0px
+    padding: 5px;
+    bottom: 0px
 }
 </style>

@@ -1,4 +1,4 @@
-export default {
+const state = {
     fight: {
         name: "Fight",
         description: "",
@@ -19,4 +19,19 @@ export default {
         description: "",
         amount: 4
     }
+}
+
+
+const getters = {
+    attributes: (state) => {
+        return state
+    }
+}
+
+const mutations = {}
+
+export default {
+    state,
+    getters,
+    mutations
 }

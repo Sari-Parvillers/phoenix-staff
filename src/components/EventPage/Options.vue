@@ -5,7 +5,7 @@
 
             <button class="option"
             @click="handleOutcome(option.outcome)">
-                {{ option.text }}
+                {{ option.id }}. {{ option.text }}
             </button>
 
         </li>
@@ -20,18 +20,27 @@ export default {
     name: "Options",
     props: ["options"],
     computed: {
-        ...mapState({
-            events: 'events'
-        })
+        ...mapState([
+            'events',
+            'flags'
+        ])
+        // Hide or grey out option (or other):
+        // use Array.filter for options that don't meet requirements AND have disabledState == "hidden"
+        //
     },
 
 
     methods: {
         ...mapMutations([
             'swapCurrentEvent',
+
             'increaseResource',
-            'decreaseResource'
+            'decreaseResource',
+
+            'enableFlag',
+            'disableFlag'
         ]),
+
         handleOutcome(outcome) {
             const newEvent = this.events[outcome.newEvent]
             this.swapCurrentEvent(newEvent)
@@ -43,10 +52,26 @@ export default {
                 this.decreaseResource(outcome.cost)
             }
 
+            if (outcome.flags) {
+                if (outcome.flags.enable) {
+                    this.enableFlag(outcome.flags.enable)
+                }
+                if (outcome.flags.disable) {
+                    this.disableFlag(outcome.flags.disable)
+                }
+            }
         }
     }
 }
 </script>
+
+
+<style scoped>
+ol {
+    list-style: none;
+    padding-inline-start: 20px;
+}
+</style>
 
 
 <style>

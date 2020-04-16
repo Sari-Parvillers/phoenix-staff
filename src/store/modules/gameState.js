@@ -20,21 +20,6 @@ const state = {
 const getters = {
     currentEvent: function(state) {
         return state.currentEvent
-    },
-
-    currentEventParsedParagraphs: function(state) {
-        // Returns an array of object with an ID from an array of strings
-        let parsedParagraphs = []
-        let index = 0
-        state.currentEvent.text.forEach(paragraph => {
-            parsedParagraphs[index] = {
-                id: index,
-                text: paragraph
-            }
-            index++
-        })
-
-        return parsedParagraphs
     }
 }
 

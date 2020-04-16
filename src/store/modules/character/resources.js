@@ -1,4 +1,3 @@
-
 const state = {
     stamina: {
         name: "Stamina",
@@ -19,20 +18,8 @@ const state = {
 
 
 const getters = {
-    resourceList: function(state) {
-        const resourceArray = []
-        let index = 0
-
-        for (let resource in state) {
-            resourceArray[index] = {
-                id: index,
-                amount: state[resource].amount,
-                description: state[resource].description,
-                name: state[resource].name
-            }
-            index++
-        }
-        return resourceArray
+    resources: (state) => {
+        return state
     }
 }
 
@@ -47,7 +34,7 @@ const mutations = {
         for (const resource in gainPayload) {
             console.assert(typeof gainPayload[resource] == "number", `increaseResource error, amount is not a number`)
             console.assert(gainPayload[resource] > 0, `increaseResource error, amount must be more than 0 (is ${gainPayload[resource]})`)
-            console.assert(state[resource], `increaseResource error, "${resource}" is an undefined resource`)
+            console.assert(resource in state, `increaseResource error, "${resource}" is an undefined resource`)
 
             state[resource].amount += gainPayload[resource]
         }
@@ -57,7 +44,7 @@ const mutations = {
         for (const resource in costPayload) {
             console.assert(typeof costPayload[resource] == "number", `decreaseResource error, amount is not a number`)
             console.assert(costPayload[resource] > 0, `decreaseResource error, amount must be more than 0 (is ${costPayload[resource]})`)
-            console.assert(state[resource], `decreaseResource error, "${resource}" is an undefined resource`)
+            console.assert(resource in state, `decreaseResource error, "${resource}" is an undefined resource`)
 
             state[resource].amount -= costPayload[resource]
         }

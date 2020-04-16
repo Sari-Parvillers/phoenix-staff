@@ -1,7 +1,16 @@
 <template>
   <div id="app">
-    <Header />
-    <EventPage />
+    <Header
+    @changePageToGame="changePage('game')"
+    @changePageToEditor="changePage('editor')"
+    />
+
+    <EventPage
+    v-if="currentPage === 'game'"
+    />
+    <Editor
+    v-if="currentPage === 'editor'"
+    />
     <Footer />
   </div>
 </template>
@@ -9,6 +18,7 @@
 <script>
 import Header from './components/Header.vue'
 import EventPage from './components/EventPage.vue'
+import Editor from './components/Editor.vue'
 import Footer from './components/Footer.vue'
 
 export default {
@@ -16,7 +26,20 @@ export default {
   components: {
     Header,
     EventPage,
+    Editor,
     Footer
+  },
+
+  data() {
+    return {
+      currentPage: 'game'
+    }
+  },
+
+  methods: {
+    changePage(newPage) {
+      this.currentPage = newPage
+    }
   }
 }
 </script>
@@ -30,17 +53,8 @@ body {
   color: lightgrey;
   background-color: rgb(25, 25, 25);
   margin: 0;
-}
 
-p {
-  line-height: 1.2;
-}
-
-h1 {
-  font-weight: normal;
-  font-style: italic;
-  font-size: 1.2rem;
-  margin: 0;
+  font-family: sans-serif;
 }
 
 header {
