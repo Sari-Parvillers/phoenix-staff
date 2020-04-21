@@ -26,7 +26,7 @@
 
         <span v-show="toggledButton">
             Name of the new {{ toggledButton }}
-            <span v-show="toggledButton == 'chapter'"> in project <strong>{{ folderOfNewThing.name }}</strong></span>
+            <span v-show="!toggledButton == 'project'">in {{folderOfNewThing.type}} <strong>{{ folderOfNewThing.name }}</strong></span>
             <br>
 
             <input v-model="nameOfNewThing">
@@ -35,11 +35,15 @@
 
             <button @click="cancelNewThing()">Cancel</button>
         </span>
+        <span v-show="unavailableName">
+            <strong>{{ unavailableName }}</strong> is already the name of another {{ toggledButton }}
+            <span v-show="!(toggledButton == 'project')">in {{folderOfNewThing.type}} <strong>{{ folderOfNewThing.name }}</strong></span>
+        </span>
     </section>
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapState } from 'vuex'
 export default {
     name: 'BrowserButtons',
 
@@ -48,11 +52,15 @@ export default {
         return {
             toggledButton: '',
             nameOfNewThing: '',
-            folderOfNewThing: ''
+            folderOfNewThing: '',
+            unavailableName: ''
         }
     },
 
-    computed: mapGetters(['editorSelected']),
+    computed: {
+        ...mapGetters(['editorSelected']),
+        ...mapState(['editorState'])
+    },
 
     methods: {
         ...mapMutations([
@@ -66,6 +74,7 @@ export default {
             this.toggledButton = ''
             this.nameOfNewThing = ''
             this.folderOfNewThing = ''
+            this.unavailableName = ''
         },
 
         setToggledButton(button) {
@@ -85,6 +94,7 @@ export default {
                 events: {}
             }
             this.addNewProject(newProject)
+            this.cancelNewThing()
         },
 
         createNewChapter(name, project) {
@@ -99,6 +109,7 @@ export default {
                 events: {}
             }
             this.addNewChapter(newChapter)
+            this.cancelNewThing()
         },
 
         createNewScene(name, chapter) {
@@ -113,6 +124,7 @@ export default {
                 events: {}
             }
             this.addNewScene(newScene)
+            this.cancelNewThing()
         },
 
         createNewEvent(name, folder) {
@@ -121,7 +133,8 @@ export default {
                     name: name,
                     type: 'event',
                     level: folder.type
-                }
+                },
+                event: {}
             }
             let level = newEvent.meta.level
             if (level == 'project') {
@@ -138,26 +151,99 @@ export default {
                 newEvent.meta.upperScene = folder.name
             }
             this.addNewEvent(newEvent)
+            this.cancelNewThing()
         },
 
         createNewThing(name, folder) {
+            // Helper functions for readability
+            // dear god
+            const editorState = this.editorState
+
+            function nameIsInProjects() {
+                return name in editorState.projects
+            }
+
+            function nameIsInChapters() {
+                return name in
+                editorState
+                .projects[folder.name]
+                .chapters
+            }
+
+            function nameIsInScenes() {
+                return name in
+                editorState
+                .projects[folder.upperProject]
+                .chapters[folder.name]
+                .scenes
+            }
+
+            function eventIsInProject() {
+                return name in
+                editorState
+                .projects[folder.name].events
+            }
+
+            function eventIsInChapter() {
+                return name in
+                editorState
+                .projects[folder.upperProject]
+                .chapters[folder.name].events
+            }
+
+            function eventIsInScenes() {
+                return name in
+                editorState
+                .projects[folder.upperProject]
+                .chapters[folder.upperChapter]
+                .scenes[folder.name].events
+            }
+
+
             if (this.toggledButton == 'project') {
-                this.createNewProject(name)
+                if (!nameIsInProjects()) {
+                    this.createNewProject(name)
+                } else {
+                    this.unavailableName = name
+                    // When unavailableName is truthy it shows the unavailable name error message
+                }
             }
 
             if (this.toggledButton == 'chapter') {
-                this.createNewChapter(name, folder)
+                if (!nameIsInChapters()) {
+                    this.createNewChapter(name, folder)
+                } else {
+                    this.unavailableName = name
+                }
             }
 
             if (this.toggledButton == 'scene') {
-                this.createNewScene(name, folder)
+                if (!nameIsInScenes()) {
+                    this.createNewScene(name, folder)
+                } else {
+                    this.unavailableName = name
+                }
             }
 
             if (this.toggledButton == 'event') {
-                this.createNewEvent(name, folder)
-            }
+                if (folder.type == 'project') {
+                    if (eventIsInProject()) {
+                        this.unavailableName = name
+                    }
+                } else if (folder.type == 'chapter') {
+                    if (eventIsInChapter()) {
+                        this.unavailableName = name
+                    }
+                } else if (folder.type == 'scene') {
+                    if (eventIsInScenes()) {
+                        this.unavailableName = name
+                    }
+                }
 
-            this.cancelNewThing()
+                if (!this.unavailableName) {
+                    this.createNewEvent(name, folder)
+                }
+            }
         }
     }
 }

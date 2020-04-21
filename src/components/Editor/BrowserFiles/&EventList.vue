@@ -1,19 +1,20 @@
 <template>
-    <li>
-        <button
-        :class='{ selected: isSelected }'
-        @click="changeEditorSelected(event.meta)"
-        @keyup:enter="changeEditorSelected(event.meta)">
-            {{ event.meta.name }}
-        </button>
-    </li>
+    <ul id="event-list">
+        <li v-for="(event, index) in events" :event="event" :key="index">
+            <file-button :fileMeta="event.meta"/>
+        </li>
+    </ul>
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+
+import FileButton from './&FileButton.vue'
+
 export default {
-    name: 'EventItem',
-    props: ['event'],
+    name: 'EventList',
+    props: ['events'],
+    components: { FileButton },
 
     computed: {
         ...mapGetters([
@@ -21,7 +22,7 @@ export default {
         ]),
 
         isSelected() {
-            return this.editorSelected.name == this.event.meta.name
+            return this.editorSelected == this.event.meta
         }
     },
 
@@ -43,7 +44,6 @@ button {
     letter-spacing: inherit;
     word-spacing: inherit;
 
-    border: inherit;
     padding: inherit;
     margin: inherit;
 
@@ -51,7 +51,7 @@ button {
     color: inherit;
 
     align-items: inherit;
-    display: inherit;
+    display: inline-block;
     box-sizing: inherit;
 }
 
@@ -61,9 +61,7 @@ button:hover, button:focus {
     color: rgb(138, 156, 255);
     text-decoration: underline;
 }
-
-
-.selected {
-    border: 1px solid skyblue;
+#event-list {
+    list-style: circle;
 }
 </style>
