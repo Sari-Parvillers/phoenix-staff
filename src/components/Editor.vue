@@ -1,38 +1,8 @@
 <template>
-    <main>
-        <section>
-            <h1>This is the editor.</h1>
-
-            <span>
-                <button id="newEventButton"
-                @click="toggleEventCreation()">
-                    <span v-if="!creatingNewEvent">Create new event</span>
-                    <span v-else>Cancel event creation</span>
-                </button>
-                <button>
-                    Create new folder
-                </button>
-            </span>
-
-            <span
-            v-if="creatingNewEvent">
-                Name of the Event
-                <input
-                v-model="newEventName"
-                @keyup.enter="createNewEvent(newEventName)">
-            </span>
-
-            Event Title
-            <input>
-
-            Event text
-            <textarea></textarea>
-
-            <span><button> Save Event </button></span>
-        </section>
-
-        <Browser />
-    </main>
+    <body>
+        <item-editor/>
+        <browser />
+    </body>
 </template>
 
 <script>
@@ -41,18 +11,19 @@
 
 import { mapState } from 'vuex'
 
+
 import Browser from "./Editor/Browser.vue"
+import ItemEditor from "./Editor/ItemEditor.vue"
 
 export default {
     name: 'Editor',
     components: {
-        Browser
+        Browser,
+        ItemEditor
     },
 
     data() {
         return {
-            creatingNewEvent: false,
-            newEventName: '',
             currentEvent: {}
         }
     },
@@ -64,18 +35,8 @@ export default {
     },
 
     methods: {
-        toggleEventCreation() {
-            this.creatingNewEvent = !this.creatingNewEvent
-        },
-
-        createNewEvent(name) {
-            this.toggleEventCreation()
-            this.currentEvent = {}
-            this.currentEvent[name] = {}
-        },
-
         saveEvent() {
-            // mutate state in store to add/edit event
+            // mutate state in store to edit event
             return
         }
     }
@@ -83,12 +44,7 @@ export default {
 </script>
 
 <style scoped>
-section {
-    display: grid;
-    grid-template-columns: 600px;
-}
-
-main {
+body {
     display: grid;
     grid-template-columns: 60% 40%;
 }

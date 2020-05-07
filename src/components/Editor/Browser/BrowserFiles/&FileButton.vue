@@ -1,9 +1,9 @@
 <template>
     <button
     :class='{ selected: isSelected }'
-    @click="changeEditorSelected(fileMeta)"
-    @keyup:enter="changeEditorSelected(fileMeta)">
-        {{ fileMeta.name }}
+    @click="changeEditorSelected(file)"
+    @keyup.enter="changeEditorSelected(file)">
+        {{ file.meta.name }}
     </button>
 </template>
 
@@ -11,13 +11,13 @@
 import { mapGetters, mapMutations } from 'vuex'
 export default {
     name: "FileButton",
-    props: ['fileMeta'],
+    props: ['file'],
 
     computed: {
         ...mapGetters(['editorSelected']),
 
         isSelected() {
-            return this.editorSelected == this.fileMeta
+            return this.editorSelected.meta == this.file.meta
         }
     },
 

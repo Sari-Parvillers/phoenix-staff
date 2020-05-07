@@ -8,8 +8,8 @@
 
 
 <script>
-import BrowserButtons from './BrowserButtons.vue'
-import BrowserFiles from './BrowserFiles.vue'
+import BrowserButtons from './Browser/BrowserButtons.vue'
+import BrowserFiles from './Browser/BrowserFiles.vue'
 
 import { mapMutations, mapState } from 'vuex'
 export default {

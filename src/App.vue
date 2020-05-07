@@ -20,6 +20,7 @@ import Header from './components/Header.vue'
 import EventPage from './components/EventPage.vue'
 import Editor from './components/Editor.vue'
 import Footer from './components/Footer.vue'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
@@ -37,9 +38,15 @@ export default {
   },
 
   methods: {
+    ...mapActions(['freezeEventTemplate']),
+
     changePage(newPage) {
       this.currentPage = newPage
     }
+  },
+
+  created: function() {
+    this.freezeEventTemplate
   }
 }
 </script>

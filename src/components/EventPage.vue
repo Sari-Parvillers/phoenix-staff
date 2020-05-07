@@ -24,7 +24,7 @@ import Title from './EventPage/Title.vue'
 import Paragraph from './EventPage/Paragraph.vue'
 import Options from './EventPage/Options.vue'
 
-import Character from './Character.vue'
+import Character from './EventPage/Character.vue'
 
 import { mapGetters } from 'vuex'
 

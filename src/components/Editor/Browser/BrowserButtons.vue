@@ -7,43 +7,57 @@
             </button>
 
             <button
+            v-show="editorSelected.meta.type && !(editorSelected.meta.type == 'event')"
             @click="setToggledButton('event')">
                 New Event
             </button>
 
             <button
-            v-show="editorSelected.type == 'project'"
+            v-show="editorSelected.meta.type == 'project'"
             @click="setToggledButton('chapter')">
                 New Chapter
             </button>
 
             <button
-            v-show="editorSelected.type == 'chapter'"
+            v-show="editorSelected.meta.type == 'chapter'"
             @click="setToggledButton('scene')">
                 New Scene
             </button>
+
+            <br><br>
         </span>
 
         <span v-show="toggledButton">
             Name of the new {{ toggledButton }}
-            <span v-show="!toggledButton == 'project'">in {{folderOfNewThing.type}} <strong>{{ folderOfNewThing.name }}</strong></span>
+            <span v-show="!toggledButton == 'project'">
+                in {{folderOfNewThing.type}} <strong>{{ folderOfNewThing.name }}</strong>
+            </span>
+
             <br>
 
             <input v-model="nameOfNewThing">
 
-            <button @click="createNewThing(nameOfNewThing, folderOfNewThing)">Confirm</button>
+            <button @click="createNewThing(nameOfNewThing, folderOfNewThing)">
+                Confirm
+            </button>
 
-            <button @click="cancelNewThing()">Cancel</button>
+            <button @click="cancelNewThing()">
+                Cancel
+            </button>
         </span>
+
         <span v-show="unavailableName">
             <strong>{{ unavailableName }}</strong> is already the name of another {{ toggledButton }}
-            <span v-show="!(toggledButton == 'project')">in {{folderOfNewThing.type}} <strong>{{ folderOfNewThing.name }}</strong></span>
+            <span v-show="!(toggledButton == 'project')">
+                in {{folderOfNewThing.type}} <strong>{{ folderOfNewThing.name }}</strong>
+            </span>
         </span>
     </section>
 </template>
 
 <script>
 import { mapMutations, mapGetters, mapState } from 'vuex'
+
 export default {
     name: 'BrowserButtons',
 
@@ -58,7 +72,11 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['editorSelected']),
+        ...mapGetters([
+            'eventTemplate',
+            'editorSelected',
+            'EventTemplate'
+        ]),
         ...mapState(['editorState'])
     },
 
@@ -80,8 +98,9 @@ export default {
         setToggledButton(button) {
             this.cancelNewThing()
             this.toggledButton = button
-            this.folderOfNewThing = this.editorSelected
+            this.folderOfNewThing = this.editorSelected.meta
         },
+
 
         createNewProject(name) {
             const newProject = {
@@ -91,7 +110,26 @@ export default {
                     level: 'state'
                 },
                 chapters: {},
-                events: {}
+                events: {},
+                startingEvent: {},
+                flagCategories: {
+                    'Global': {
+                        name: 'Global',
+                        properties: {
+                            hidden: true,
+                            usable: false
+                        },
+                        flags: {
+                            'Example flag': {
+                                name: 'Example flag',
+                                value: true,
+                                description: '',
+                                effect: {}
+                            }
+                        }
+                    }
+                },
+                valueCategories: {}
             }
             this.addNewProject(newProject)
             this.cancelNewThing()
@@ -134,7 +172,7 @@ export default {
                     type: 'event',
                     level: folder.type
                 },
-                event: {}
+                event: new this.EventTemplate()
             }
             let level = newEvent.meta.level
             if (level == 'project') {

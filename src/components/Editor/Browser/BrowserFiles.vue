@@ -1,7 +1,7 @@
 <template>
     <ul id="project-list">
         <li v-for="(project, index) in editorState.projects" :project="project" :key="index">
-            <file-button :fileMeta="project.meta"/>
+            <file-button :file="project"/>
 
             <button @click="toggleDirectory(project.meta.name, 'projects')">
                 <span alt="Close project" v-show="project.meta.name in openDirectories.projects">
@@ -16,7 +16,7 @@
                 <event-list :events="project.events"/>
                 <ul>
                     <li v-for="(chapter, index) in project.chapters" :chapter="chapter" :key="index">
-                        <file-button :fileMeta="chapter.meta"/>
+                        <file-button :file="chapter"/>
 
                         <button @click="toggleDirectory(project.meta.name + chapter.meta.name, 'chapters')">
                             <span alt="Close project" v-show="project.meta.name + chapter.meta.name in openDirectories.chapters">
@@ -31,7 +31,7 @@
                             <event-list :events="chapter.events"/>
                             <ul>
                                 <li v-for="(scene, index) in chapter.scenes" :scene="scene" :key="index">
-                                    <file-button :fileMeta="scene.meta"/>
+                                    <file-button :file="scene"/>
 
                                     <button
                                     @click="toggleDirectory(project.meta.name + chapter.meta.name + scene.meta.name, 'scenes')">
@@ -59,7 +59,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapState, mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 
 import FileButton from './BrowserFiles/&FileButton.vue'
 import EventList from './BrowserFiles/&EventList.vue'
@@ -84,16 +84,9 @@ export default {
     },
 
     methods: {
-        ...mapMutations(['changeEditorSelected']),
-
-        logStuff(stuff) {
-            console.log(stuff)
-        },
-
         toggleDirectory(directory, type) {
             if (directory in this.openDirectories[type]) {
                 Vue.delete(this.openDirectories[type], directory)
-                console.log()
             } else {
                 Vue.set(this.openDirectories[type], directory, true)
             }

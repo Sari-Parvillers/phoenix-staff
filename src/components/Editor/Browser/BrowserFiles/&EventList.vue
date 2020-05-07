@@ -1,7 +1,7 @@
 <template>
     <ul id="event-list">
         <li v-for="(event, index) in events" :event="event" :key="index">
-            <file-button :fileMeta="event.meta"/>
+            <file-button :file="event"/>
         </li>
     </ul>
 </template>
@@ -22,7 +22,7 @@ export default {
         ]),
 
         isSelected() {
-            return this.editorSelected == this.event.meta
+            return this.editorSelected.meta == this.event.meta
         }
     },
 
