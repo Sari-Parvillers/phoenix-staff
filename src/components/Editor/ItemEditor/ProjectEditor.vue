@@ -6,25 +6,14 @@
         </section>
 
         <flag-editor :flagCategories="editedProject.flagCategories"/>
+        <value-editor :valueCategories="editedProject.valueCategories" />
 
-        <section>
-            <span>Values</span>
-            <ul>List of categories
-                <li>
-                    <ul>Category1
-                        <li>Value1</li> °true °false
-                        <li>Value2</li> °true °false
-                        <button>Add value</button>
-                    </ul>
-                </li>
-            </ul>
-            <button>Add category</button>
-        </section>
     </section>
 </template>
 
 <script>
 import FlagEditor from './ProjectEditor/FlagEditor.vue'
+import ValueEditor from './ProjectEditor/ValueEditor.vue'
 
 export default {
     name: 'ProjectEditor',
@@ -32,7 +21,8 @@ export default {
         'editedProject'
     ],
     components: {
-        FlagEditor
+        FlagEditor,
+        ValueEditor
     }
 }
 </script>

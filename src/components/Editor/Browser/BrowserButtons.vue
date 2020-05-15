@@ -116,7 +116,7 @@ export default {
                     'Global': {
                         name: 'Global',
                         properties: {
-                            hidden: true,
+                            visible: false,
                             usable: false
                         },
                         flags: {
@@ -129,7 +129,26 @@ export default {
                         }
                     }
                 },
-                valueCategories: {}
+                valueCategories: {
+                    'Resources': {
+                        name: 'Resources',
+                        properties: {
+                            visible: true,
+                            usable: false
+                        },
+                        values: {
+                            'Stamina': {
+                                name: 'Stamina',
+                                value: 10,
+                                description: '',
+                                effect: {},
+                                lowerThreshold: 0,
+                                upperThreshold: 'none',
+                                decimals: 0
+                            }
+                        }
+                    }
+                }
             }
             this.addNewProject(newProject)
             this.cancelNewThing()

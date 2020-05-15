@@ -9,8 +9,7 @@
             <button
             @click="toggleConditionManager(index)">Add conditions</button>
 
-            <section id="conditionManager"
-            v-show="paragraphData[index].conditionManager">
+            <section id="conditionManager">
                 <condition-manager :conditions="editedEvent.event.text[index].conditions"/>
             </section>
 

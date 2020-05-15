@@ -40,10 +40,10 @@
                 <label for="true">True</label>
             </p>
 
-            <p v-if="category.properties.hidden == false">
+            <p v-if="category.properties.visible == true">
                 Description:
                 <textarea name="" id="" cols="30" rows="10"
-                v-model="flagDescription"></textarea>
+                v-model="flag.description"></textarea>
             </p>
         </section>
     </li>
@@ -60,8 +60,7 @@ export default {
         return {
             editingFlag: false,
             editingName: false,
-            newFlagName: '',
-            flagDescription: ``
+            newFlagName: ''
         }
     },
 

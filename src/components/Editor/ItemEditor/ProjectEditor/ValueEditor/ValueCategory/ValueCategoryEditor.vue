@@ -50,8 +50,8 @@
 import Vue from 'vue'
 
 export default {
-    name: 'FlagCategoryEditor',
-    props: ['category', 'flagCategories'],
+    name: 'ValueCategoryEditor',
+    props: ['category', 'valueCategories'],
 
     data() {
         return {
@@ -64,14 +64,14 @@ export default {
         changeCategoryName() {
             const newName = this.newCategoryName
             const oldName = this.category.name
-            if ( !(newName in this.flagCategories) ) {
+            if ( !(newName in this.valueCategories) ) {
                 this.category.name = newName
-                Vue.set(this.flagCategories, newName, this.category)
-                Vue.delete(this.flagCategories, oldName)
+                Vue.set(this.valueCategories, newName, this.category)
+                Vue.delete(this.valueCategories, oldName)
                 this.editingName = false
                 this.newCategoryName = ''
             } else {
-                console.log(`${newName} is already a category name in flagCategories`)
+                console.log(`${newName} is already a category name in valueCategories`)
             }
         }
     }

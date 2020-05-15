@@ -53,7 +53,7 @@ export default {
                 const newFlagCategory = {
                     name: this.newFlagCategoryName,
                     properties: {
-                        hidden: true,
+                        visible: false,
                         usable: false
                     },
                     flags: {}
