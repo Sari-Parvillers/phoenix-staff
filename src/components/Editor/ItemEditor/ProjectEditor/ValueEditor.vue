@@ -1,7 +1,9 @@
 <template>
     <section>
-        <h3>Values</h3>
-        <ul>
+        <h2>Values</h2>
+
+        <span class="category-list-info"><i>List of value categories</i></span>
+        <ul class="category-list">
             <value-categories
             v-for="(category, index) in valueCategories"
             :key="index"
@@ -10,7 +12,7 @@
         </ul>
 
         <button @click="creatingCategory = !creatingCategory">
-            <span v-show="creatingCategory == false">Add Value category</span>
+            <span v-show="creatingCategory == false">+ Add Value category</span>
             <span v-show="creatingCategory == true">Cancel category creation</span>
         </button>
 
@@ -69,6 +71,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

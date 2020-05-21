@@ -49,7 +49,4 @@ body {
     grid-template-columns: 60% 40%;
 }
 
-* {
-    margin: 10px
-}
 </style>

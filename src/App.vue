@@ -53,20 +53,29 @@ export default {
 
 <style>
 * {
-  box-sizing: border-box;
+box-sizing: border-box;
 }
 
 body {
-  color: lightgrey;
-  background-color: rgb(25, 25, 25);
-  margin: 0;
+    color: lightgrey;
+    background-color: rgb(25, 25, 25);
+    margin: 0;
 
-  font-family: sans-serif;
+    font-family: sans-serif;
 }
 
 header {
-  border-bottom: 2px solid grey;
-  font-size: 1.1rem;
-  padding: 5px;
+    border-bottom: 2px solid grey;
+    font-size: 1.1rem;
+    padding: 5px;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.button-placeholder {
+    font-style: italic;
+    color: lightyellow;
 }
 </style>

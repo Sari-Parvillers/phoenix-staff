@@ -4,7 +4,8 @@
         <input v-model="editedEvent.event.title">
 
         <span>Event text</span>
-        <p v-for="(paragraph, index) in editedEvent.event.text" :key="index">
+        <p v-for="(paragraph, index) in editedEvent.event.text"
+        :key="index">
             <textarea v-model="editedEvent.event.text[index].paragraph" />
             <button
             @click="toggleConditionManager(index)">Add conditions</button>
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-import ConditionManager from './EventEditor/ConditionManager.vue'
+import ConditionManager from './ConditionManager.vue'
 import { mapGetters, mapMutations } from 'vuex'
 import Vue from 'vue'
 

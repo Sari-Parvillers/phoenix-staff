@@ -17,10 +17,7 @@ const state = {
             }
         ],
         // If the flag is in a 'usable' category, then clicking on it will have an effect
-        effect: {
-            flags: {},
-            values: {}
-        },
+        effects: [],
         // If the flag is in a 'usable' category, then it can be made to be usable only under certain conditions.
         conditions: {}
     }

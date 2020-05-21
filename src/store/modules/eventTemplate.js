@@ -55,14 +55,14 @@ const state = {
                     outcome: {
                         default: {
                             leadsTo: '',
-                            effects: {}
+                            effects: []
                         },
                         conditionals: [
                             /*
                             {
                                 leadsTo: '',
                                 conditions: {},
-                                effects: {}
+                                effects: []
                             }
                             */
                         ]

@@ -124,7 +124,7 @@ export default {
                                 name: 'Example flag',
                                 value: true,
                                 description: '',
-                                effect: {}
+                                effects: []
                             }
                         }
                     }
@@ -141,7 +141,7 @@ export default {
                                 name: 'Stamina',
                                 value: 10,
                                 description: '',
-                                effect: {},
+                                effects: [],
                                 lowerThreshold: 0,
                                 upperThreshold: 'none',
                                 decimals: 0

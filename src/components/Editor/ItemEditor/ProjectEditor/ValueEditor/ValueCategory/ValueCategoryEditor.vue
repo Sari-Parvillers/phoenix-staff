@@ -1,5 +1,6 @@
 <template>
-    <section>
+    <section id="value-category-editor"
+    class="category-editor">
         <strong>Editing Category <i>{{ category.name }}</i></strong>
 
         <button @click="editingName = !editingName">

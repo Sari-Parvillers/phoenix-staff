@@ -54,8 +54,6 @@
 import Vue from 'vue'
 
 export default {
-
-
     name: "ConditionManager",
     props: ['conditions'],
 
@@ -81,12 +79,12 @@ export default {
         addConditionItem(type) {
             const indexOfNewItem = this.conditions.items.length
             const levelOfNewItem = this.conditions.level + 1
-            Vue.set(this.conditions.items, indexOfNewItem,
-            {
+            const conditionItem = {
                 type: type,
-                items: [],
+                item: [],
                 level: levelOfNewItem
-            })
+            }
+            Vue.set(this.conditions.items, indexOfNewItem, conditionItem)
         },
 
         deleteCondition(itemToDeleteIndex) {

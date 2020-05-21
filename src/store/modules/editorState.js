@@ -18,6 +18,30 @@ const getters = {
 
     editorSelected(state) {
         return state.editorSelected
+    },
+
+    editorFlags(state) {
+        if (!state.editorCurrentItem.meta.type) {
+            return null
+        }
+
+        if (state.editorCurrentItem.meta.type == 'project') {
+            return state.editorCurrentItem.flagCategories
+        } else {
+            return state.projects[state.editorCurrentItem.meta.upperProject].flagCategories
+        }
+    },
+
+    editorValues(state) {
+        if (!state.editorCurrentItem.meta.type) {
+            return null
+        }
+
+        if (state.editorCurrentItem.meta.type == 'project') {
+            return state.editorCurrentItem.valueCategories
+        } else {
+            return state.projects[state.editorCurrentItem.meta.upperProject].valueCategories
+        }
     }
 }
 

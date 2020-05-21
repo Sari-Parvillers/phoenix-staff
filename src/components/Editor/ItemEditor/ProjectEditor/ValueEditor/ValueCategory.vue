@@ -1,46 +1,55 @@
 <template>
-<li>
-        <h4>{{ category.name }}</h4>
+    <li id="value-category" class="project-category">
+        <h4 class="project-category-title">{{ category.name }}
+            <button @click="collapsed = !collapsed">
+                <span v-show="!collapsed">collapse -</span>
+                <span v-show="collapsed">expand +</span>
+            </button>
+        </h4>
 
-        <!-- Edit Category -->
-        <button
-        @click="editingCategory = !editingCategory">
-            <span v-show="editingCategory == false">Edit category {{ category.name }}</span>
-            <span v-show="editingCategory == true" >Close <i>{{ category.name }}</i> editing section</span>
-        </button>
 
-        <!-- Create Value -->
-        <button @click="creatingNewValue = !creatingNewValue">
-            <span v-show="creatingNewValue == false">Add new value</span>
-            <span v-show="creatingNewValue == true">Cancel value creation</span>
-        </button>
+        <section v-show="!collapsed">
+            <!-- Edit Category -->
+            <p class="edit-option">
+                <button
+                @click="editingCategory = !editingCategory">
+                    <span v-show="editingCategory == false">Edit category {{ category.name }}</span>
+                    <span v-show="editingCategory == true" >Close <i>{{ category.name }}</i> editing section</span>
+                </button>
+            </p>
 
-        <!-- Input for name of new value -->
-        <br>
-        <input type="text"
-        v-show="creatingNewValue == true"
-        v-model="newValueName"
-        @keyup.enter="createNewValue()">
 
-        <!-- Confirm creation of new value -->
-        <button
-        v-show="creatingNewValue == true"
-        @click="createNewValue()">
-            Create new value
-        </button>
+            <value-category-editor
+            v-if="editingCategory == true"
+            :valueCategories="valueCategories"
+            :category="category"/>
 
-        <value-category-editor
-        v-if="editingCategory == true"
-        :valueCategories="valueCategories"
-        :category="category"/>
+            <ul>
+                <value-item
+                v-for="(value, index) in category.values"
+                :key="index"
+                :category="category"
+                :value="value" />
+            </ul>
 
-        <ul>
-            <value-item
-            v-for="(value, index) in category.values"
-            :key="index"
-            :category="category"
-            :value="value" />
-        </ul>
+            <!-- Create Value -->
+            <button @click="creatingNewValue = !creatingNewValue">
+                <span v-show="creatingNewValue == false">Add new value</span>
+                <span v-show="creatingNewValue == true">Cancel value creation</span>
+            </button>
+
+            <!-- Input for name of new value -->
+            <input type="text"
+            v-show="creatingNewValue == true"
+            v-model="newValueName"
+            @keyup.enter="createNewValue()">
+
+            <!-- Confirm creation of new value -->
+            <button v-show="creatingNewValue == true"
+            @click="createNewValue()">
+                Create new value
+            </button>
+        </section>
     </li>
 </template>
 
@@ -60,6 +69,8 @@ export default {
 
     data() {
         return {
+            collapsed: false,
+
             editingCategory: false,
 
             creatingNewValue: false,
@@ -70,17 +81,17 @@ export default {
     methods: {
         createNewValue() {
             const name = this.newValueName
-            if ( !(name in this.category) ) {
+            if ( !(name in this.category.values) ) {
                 const newValue = {
                     name: name,
                     value: 0,
                     description: '',
-                    effect: {},
+                    effects: [],
                     lowerThreshold: 'none',
                     upperThreshold: 'none',
                     decimals: 0
                 }
-                Vue.set(this.category, name, newValue)
+                Vue.set(this.category.values, name, newValue)
                 this.creatingNewValue = false
                 this.newValueName = ''
             } else {
@@ -91,6 +102,5 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>

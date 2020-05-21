@@ -1,35 +1,39 @@
 <template>
-    <li>
-        <span>{{ flag.name }}</span>
+    <li class="project-category-item">
+        <span>{{ flag.name }}  </span>
 
         <!-- Edit Flag button -->
-        <button
-        @click="editingFlag = !editingFlag; editingName = false" >
-            <span v-show="editingFlag == false" >Edit <i>{{ flag.name }}</i></span>
-            <span v-show="editingFlag == true" >Close <i>{{ flag.name }}</i> editing section</span>
+        <button @click="editingFlag = !editingFlag; editingName = false" >
+            <span v-show="editingFlag == false" >expand ↓</span>
+            <span v-show="editingFlag == true" >collapse →</span>
         </button>
 
         <!-- Flag editing section -->
-        <section v-if="editingFlag == true">
+        <section class="project-category-item-editor"
+        v-if="editingFlag == true">
             <strong>Editing <i>{{ flag.name }}</i></strong>
 
-            <button @click="editingName = !editingName">
-                <span v-show="editingName == false">Edit name</span>
-                <span v-show="editingName == true">Cancel name editing</span>
-            </button>
+            <p class="edit-option category-section">
+                <button @click="editingName = !editingName">
+                    <span v-show="editingName == false">Edit name</span>
+                    <span v-show="editingName == true">Cancel name editing</span>
+                </button>
 
-            <input type="text"
-            v-show="editingName == true"
-            v-model="newFlagName">
+                <input type="text"
+                v-show="editingName == true"
+                v-model="newFlagName">
 
-            <button @click="editFlagName()"
-            v-show="editingName == true">
-                Confirm name change
-            </button>
+                <button @click="editFlagName()"
+                v-show="editingName == true">
+                    Confirm name change
+                </button>
+            </p>
 
-            <p>
+            <p class="edit-option category-section">
                 Starting value:
-                <input type="radio" :value="false" id="false"
+                <input type="radio"
+                id="false"
+                :value="false"
                 :name="`category${category.name} flag${flag.name}`"
                 v-model="flag.value">
                 <label for="false">False</label>
@@ -40,10 +44,18 @@
                 <label for="true">True</label>
             </p>
 
-            <p v-if="category.properties.visible == true">
+            <p class="edit-option category-section"
+            v-if="category.properties.visible == true">
                 Description:
                 <textarea name="" id="" cols="30" rows="10"
                 v-model="flag.description"></textarea>
+            </p>
+
+            <p class="edit-option category-section"
+            v-if="category.properties.usable == true">
+                <strong>Effect editor:</strong>
+                <effect-manager :effects="this.flag.effects"
+                :uniqueKey="`in flag category ${category.name}, flag ${flag.name}`"/>
             </p>
         </section>
     </li>
@@ -52,9 +64,14 @@
 <script>
 import Vue from 'vue'
 
+import EffectManager from '../../../EffectManager.vue'
+
 export default {
     name: 'FlagItem',
     props: ['flag', 'category'],
+    components: {
+        EffectManager
+    },
 
     data() {
         return {

@@ -9,18 +9,22 @@
                 Edit selected {{editorSelected.meta.type}}
             </button>
 
-            <span class="button-placeholder"
+            <span
+            class="button-placeholder"
             v-show="editorSelected.meta.type != 'event' || editorSelected.meta.type != 'project'">
                 Select an event or a project to edit
             </span>
 
             <h3 v-show="editorCurrentItem.meta.name">
                 Currently editing {{editorCurrentItem.meta.type}} <strong>{{ editorCurrentItem.meta.name }}</strong>
+
                 <span v-show ="editorCurrentItem.meta.type != 'project'">
                     in project <strong>{{ editorCurrentItem.meta.upperProject}}</strong>
+
                     <span v-show="editorCurrentItem.meta.upperChapter">
                         ; chapter <strong>{{ editorCurrentItem.meta.upperChapter}}</strong>
                     </span>
+
                     <span v-show="editorCurrentItem.meta.upperScene">
                         ; scene <strong>{{ editorCurrentItem.meta.upperScene}}</strong>
                     </span>
@@ -28,10 +32,16 @@
             </h3>
         </section>
 
-        <event-editor v-if="editedItem.meta.type == 'event'" :editedEvent="editedItem" :paragraphData="paragraphData"
+        <event-editor
+        v-if="editedItem.meta.type == 'event'"
+        :editedEvent="editedItem"
+        :paragraphData="paragraphData"
         class="editor"/>
 
-        <project-editor v-if="editedItem.meta.type == 'project'" :editedProject="editedItem" class="editor"/>
+        <project-editor
+        v-if="editedItem.meta.type == 'project'"
+        :editedProject="editedItem"
+        class="editor"/>
     </main>
 </template>
 
@@ -90,36 +100,28 @@ export default {
 }
 </script>
 
+<style>
+.edit-option {
+    margin-top: 0
+}
+</style>
+
 <style scoped>
-* {
-    margin: 10px
+main {
+    margin-left: 1%;
+    border-right: 8px solid lightyellow;
 }
 
-.editor {
-    display: grid;
-    grid-template-columns: 600px;
-    border-right: solid 1px lightgray;
-}
-
-.button-placeholder {
-    font-style: italic;
-    color: lightyellow;
-}
-
-span {
-    margin: 0;
-}
-
-p {
-    margin: 0;
+#event-editor-meta {
+    border-bottom: 8px solid lightyellow;
+    margin-bottom: 1%
 }
 
 h3 {
-    font-weight: inherit;
+    font-weight: 100;
 }
 
 strong {
-    margin: 0;
     color: lightgoldenrodyellow;
 }
 </style>

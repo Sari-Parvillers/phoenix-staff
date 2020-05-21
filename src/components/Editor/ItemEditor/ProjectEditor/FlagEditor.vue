@@ -1,7 +1,9 @@
 <template>
     <section>
-        <h3>Flags</h3>
-        <ul>
+        <h2>Flags</h2>
+
+        <span class="category-list-info"><i>List of flag categories</i></span>
+        <ul class="category-list">
             <flag-category
             v-for="(category, index) in flagCategories"
             :key="index"
@@ -11,7 +13,7 @@
 
         <!-- Create Flag Category / Cancel Flag Category creation button -->
         <button @click="creatingFlagCategory = !creatingFlagCategory">
-            <span v-show="!creatingFlagCategory">Add flag category</span>
+            <span v-show="!creatingFlagCategory">+ Add flag category</span>
             <span v-show="creatingFlagCategory">Cancel category creation</span>
         </button>
 
