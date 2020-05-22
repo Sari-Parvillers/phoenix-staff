@@ -3,8 +3,8 @@
         <i>Flag effect:</i>
         <p class="edit-option">
             <span>Category:
-                <select :name="'category select ' + uniqueKey"
-                id="category-select"
+                <select :name="'flag effect category select ' + uniqueKey"
+                id="flag-effect-category-select"
                 v-model="effect.content.category">
                     <option v-for="(flagCategory, index) in editorFlags"
                     :key="index"
@@ -16,8 +16,8 @@
 
             <span>  Flag:
                 <select v-if="effect.content.category"
-                :name="'flag select ' + uniqueKey"
-                id="flag-select"
+                :name="'flag effect flag select ' + uniqueKey"
+                id="flag-effect-flag-select"
                 v-model="effect.content.flag">
                     <option v-for="(flag, index) in editorFlags[effect.content.category].flags"
                     :key="index"

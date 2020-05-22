@@ -102,7 +102,8 @@ export default {
 
 <style>
 .edit-option {
-    margin-top: 0
+    margin-top: 0;
+    margin-bottom: 8px;
 }
 </style>
 

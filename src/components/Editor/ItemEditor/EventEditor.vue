@@ -11,7 +11,8 @@
             @click="toggleConditionManager(index)">Add conditions</button>
 
             <section id="conditionManager">
-                <condition-manager :conditions="editedEvent.event.text[index].conditions"/>
+                <condition-manager :conditions="editedEvent.event.text[index].conditions"
+                :uniqueKey="`paragraph${index} ` + uniqueKey"/>
             </section>
 
             <button @click="deleteParagraph(index)">Delete paragraph</button>
@@ -47,7 +48,20 @@ export default {
     computed: {
         ...mapGetters([
             'paragraphTemplate'
-        ])
+        ]),
+
+        uniqueKey() {
+            let key = `in event ${this.editedEvent.meta.name}`
+            if (this.editedEvent.meta.upperScene) {
+                key += ` in Scene ${this.editedEvent.meta.upperScene}`
+            }
+            if (this.editedEvent.meta.upperChapter) {
+                key += ` in Chapter ${this.editedEvent.meta.upperChapter}`
+            }
+            key += ` in Project ${this.editedEvent.meta.upperProject}`
+
+            return key
+        }
     },
 
 

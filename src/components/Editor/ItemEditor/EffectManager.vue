@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="manager">
         <p class="edit-option">
             <button @click="addFlagEffect()">Add flag effect</button>
             <button @click="addValueEffect()">Add value effect</button>

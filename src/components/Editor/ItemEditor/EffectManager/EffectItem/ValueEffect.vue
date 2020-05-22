@@ -3,8 +3,8 @@
         <i>Value effect:</i>
         <p class="edit-option">
             <span>Category:
-                <select :name="'category select ' + uniqueKey"
-                id="category-select"
+                <select :name="'value effect category select ' + uniqueKey"
+                id="value-effect-category-select"
                 v-model="effect.content.category">
                     <option v-for="(valueCategory, index) in editorValues"
                     :key="index"
@@ -16,8 +16,8 @@
 
             <span>  Value:
                 <select v-if="effect.content.category"
-                :name="'value select ' + uniqueKey"
-                id="value-select"
+                :name="'value effect value select ' + uniqueKey"
+                id="value-effect-value-select"
                 v-model="effect.content.value">
                     <option v-for="(value, index) in editorValues[effect.content.category].values"
                     :key="index"
@@ -38,7 +38,7 @@
             :key="index">
                 <input type="radio"
                 :id="operator"
-                :name="'value effect ' + uniqueKey"
+                :name="'value effect operators' + uniqueKey"
                 :value="operator"
                 v-model="effect.content.operator">
                 <label :for="operator"

@@ -1,61 +1,43 @@
 <template>
-    <ul>
-        I am condition manager beep boop <br>
-        <span>
-            <button @click="addConditionItem('flag')" v-show="!(conditions.flag)"> add flag conditions </button>
-            <button @click="addConditionItem('value')" v-show="!(conditions.values)"> add value conditions </button>
-            <button @click="addConditionItem('OR')"> add operator </button>
-            <button @click="$emit('delete', conditions)" v-show="!(conditions.type == 'root')"> delete condition </button>
-        </span>
+    <section class="manager">
+        <p class="edit-option">
 
-        <li v-for="(condition, index) in conditions.items" :key="index">
-            <span v-if="condition.type == 'flag'">
-                <button> add flag </button>
-                <span v-for="(item, index) in condition.items" :key="index">
+            <button @click="addConditionItem('flag')">
+                Add flag conditions
+            </button>
 
-                </span>
-            </span>
+            <button @click="addConditionItem('value')">
+                Add value conditions
+            </button>
 
+            <button @click="addConditionItem('OR')">
+                Add operator
+            </button>
 
-            <span v-if="condition.type == 'value'"> values </span>
+            <button @click="$emit('delete', conditions)"
+            v-if="conditions.type != 'root'">
+                Delete condition
+            </button>
+        </p>
 
-
-            <span v-if="isOperator(condition.type)">
-                <br>
-                ∟ Condition {{ conditions.items.indexOf(condition) }}
-                <input checked type="radio" value="OR" id="OR"
-                :name="`operator level${condition.level} index${index}`"
-                v-model="conditions.items[index].type">
-                <label for="OR">OR</label>
-
-                <input type="radio" value="AND" id="AND"
-                :name="`operator level${condition.level} index${index}`"
-                v-model="conditions.items[index].type">
-                <label for="AND">AND</label>
-
-                <input type="radio" value="NOR" id="NOR"
-                :name="`operator level${condition.level} index${index}`"
-                v-model="conditions.items[index].type">
-                <label for="NOR">NOR</label>
-
-                <input type="radio" value="NAND" id="NAND"
-                :name="`operator level${condition.level} index${index}`"
-                v-model="conditions.items[index].type">
-                <label for="NAND">NAND</label>
-            </span>
-
-            <condition-manager v-if="isOperator(condition.type)"
-            :conditions="condition" @delete="deleteCondition(conditions.items.indexOf($event))" />
-        </li>
-    </ul>
+        <ul>
+            <condition-item v-for="(condition, index) in conditions.items"
+            :key="index"
+            :condition="condition"
+            :uniqueKey="uniqueKey + index + '|'"/>
+        </ul>
+    </section>
 </template>
 
 <script>
 import Vue from 'vue'
 
+import ConditionItem from './ConditionManager/ConditionItem.vue'
+
 export default {
     name: "ConditionManager",
-    props: ['conditions'],
+    props: ['conditions', 'uniqueKey'],
+    components: { ConditionItem },
 
     data() {
         return {}
@@ -63,12 +45,13 @@ export default {
 
 
     methods: {
-        isOperator(type) {
+        isOperatorOrRoot(type) {
             if (
                 type == 'OR' ||
                 type == 'AND' ||
                 type == 'NOR' ||
-                type == 'NAND'
+                type == 'NAND' ||
+                type == 'root'
             ) {
                 return true
             } else {
@@ -81,8 +64,28 @@ export default {
             const levelOfNewItem = this.conditions.level + 1
             const conditionItem = {
                 type: type,
-                item: [],
                 level: levelOfNewItem
+            }
+            if (type == 'flag') {
+                conditionItem.content = {
+                    category: '',
+                    flag: '',
+                    trueIf: true
+                }
+            } else if (type == 'value') {
+                conditionItem.content = {
+                    category: '',
+                    value: '',
+                    comparator: 'equals',
+                    comparand: {
+                        type: 'number',
+                        number: 0,
+                        category: '',
+                        value: ''
+                    }
+                }
+            } else if (this.isOperatorOrRoot(type)) {
+                conditionItem.items = []
             }
             Vue.set(this.conditions.items, indexOfNewItem, conditionItem)
         },
@@ -94,10 +97,21 @@ export default {
 }
 </script>
 
+<style>
+
+</style>
+
 <style scoped>
+section {
+    border: 2px solid lightblue;
+    padding: 2px;
+}
+
 ul {
+    border-top: 1px solid lightblue;
     list-style: none;
-    margin: inherit;
+    padding: 0;
+    margin-left: 2%;
 }
 
 label {
