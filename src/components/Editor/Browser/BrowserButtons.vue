@@ -124,7 +124,12 @@ export default {
                                 name: 'Example flag',
                                 value: true,
                                 description: '',
-                                effects: []
+                                effects: [],
+                                conditions: {
+                                    items: [],
+                                    level: 0,
+                                    type: 'root'
+                                }
                             }
                         }
                     }

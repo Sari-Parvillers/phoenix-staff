@@ -44,7 +44,7 @@ const state = {
                 {
                     text: [
                         {
-                            content: 'First option text',
+                            content: 'Option text',
                             conditions: {
                                 type: 'root',
                                 level: 0,
@@ -70,6 +70,14 @@ const state = {
                 }
             ]
         }
+    },
+
+    ConditionTemplate: class ConditionTemplate {
+        constructor() {
+            this.type = "root",
+            this.level = "0",
+            this.items = []
+        }
     }
 }
 
@@ -82,6 +90,16 @@ const getters = {
         const paragraphTemplate = new state.EventTemplate().text[0]
 
         return {...paragraphTemplate}
+    },
+
+    optionTemplate(state) {
+        const optionTemplate = new state.EventTemplate().options[0]
+
+        return {...optionTemplate}
+    },
+
+    conditionTemplate(state) {
+        return new state.ConditionTemplate()
     }
 }
 

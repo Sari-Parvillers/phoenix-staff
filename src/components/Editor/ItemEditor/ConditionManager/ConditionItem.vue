@@ -9,6 +9,8 @@
         <value-condition v-if="condition.type == 'value'"
         :condition="condition"
         :uniqueKey="uniqueKey" />
+
+        <button @click="$emit('delete-condition', index)">Delete condition</button>
     </li>
 </template>
 
@@ -19,7 +21,7 @@ import ValueCondition from './ConditionItem/ValueCondition.vue'
 
 export default {
     name: 'ConditionItem',
-    props: ['condition', 'uniqueKey'],
+    props: ['condition', 'uniqueKey', 'index'],
     components: {
         FlagCondition,
         OperatorCondition,

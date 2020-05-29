@@ -57,6 +57,13 @@
                 <effect-manager :effects="this.flag.effects"
                 :uniqueKey="`in flag category ${category.name}, flag ${flag.name}`"/>
             </p>
+
+            <p class="edit-option category-section"
+            v-if="category.properties.usable == true">
+                <strong>Condition editor:</strong>
+                <condition-manager :conditions="this.flag.conditions"
+                :uniqueKey="`in flag category ${category.name}, flag ${flag.name}`"/>
+            </p>
         </section>
     </li>
 </template>
@@ -65,12 +72,14 @@
 import Vue from 'vue'
 
 import EffectManager from '../../../EffectManager.vue'
+import ConditionManager from '../../../ConditionManager.vue'
 
 export default {
     name: 'FlagItem',
     props: ['flag', 'category'],
     components: {
-        EffectManager
+        EffectManager,
+        ConditionManager
     },
 
     data() {

@@ -1,7 +1,7 @@
 <template>
-    <section class="manager">
+    <form class="manager"
+    @submit.prevent>
         <p class="edit-option">
-
             <button @click="addConditionItem('flag')">
                 Add flag conditions
             </button>
@@ -13,20 +13,17 @@
             <button @click="addConditionItem('OR')">
                 Add operator
             </button>
-
-            <button @click="$emit('delete', conditions)"
-            v-if="conditions.type != 'root'">
-                Delete condition
-            </button>
         </p>
 
         <ul>
             <condition-item v-for="(condition, index) in conditions.items"
             :key="index"
+            :index="index"
             :condition="condition"
-            :uniqueKey="uniqueKey + index + '|'"/>
+            :uniqueKey="uniqueKey + index + '|'"
+            @delete-condition="deleteCondition($event)" />
         </ul>
-    </section>
+    </form>
 </template>
 
 <script>
@@ -90,8 +87,8 @@ export default {
             Vue.set(this.conditions.items, indexOfNewItem, conditionItem)
         },
 
-        deleteCondition(itemToDeleteIndex) {
-            this.conditions.items.splice(itemToDeleteIndex, 1)
+        deleteCondition(itemIndex) {
+            this.conditions.items.splice(itemIndex, 1)
         }
     }
 }
@@ -102,7 +99,7 @@ export default {
 </style>
 
 <style scoped>
-section {
+form {
     border: 2px solid lightblue;
     padding: 2px;
 }

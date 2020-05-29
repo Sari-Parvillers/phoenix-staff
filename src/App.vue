@@ -78,4 +78,17 @@ header {
     font-style: italic;
     color: lightyellow;
 }
+
+.content {
+    padding-left: 0.5rem;
+    border-left: 1px grey solid;
+}
+
+fieldset {
+  display: inherit;
+  margin: inherit;
+  padding: inherit;
+  min-inline-size: inherit;
+  border: inherit;
+}
 </style>

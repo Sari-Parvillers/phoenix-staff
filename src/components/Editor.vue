@@ -46,7 +46,7 @@ export default {
 <style scoped>
 body {
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 75% 25%;
 }
 
 </style>

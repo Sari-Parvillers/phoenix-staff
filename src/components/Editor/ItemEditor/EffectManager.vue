@@ -9,7 +9,7 @@
             <effect-item v-for="(effect, index) in effects"
             :key="index"
             :effect="effect"
-            :uniqueKey="uniqueKey + index"/>
+            :uniqueKey="uniqueKey + index + '|'"/>
         </ul>
     </section>
 </template>

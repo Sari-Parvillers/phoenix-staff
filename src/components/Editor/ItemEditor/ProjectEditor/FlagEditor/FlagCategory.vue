@@ -86,7 +86,12 @@ export default {
                     name: this.newFlagName,
                     value: false,
                     description: "",
-                    effects: []
+                    effects: [],
+                    conditions: {
+                        items: [],
+                        level: 0,
+                        type: 'root'
+                    }
                 }
                 Vue.set(this.category.flags, this.newFlagName, newFlag)
                 this.creatingNewFlag = false

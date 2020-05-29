@@ -3,25 +3,9 @@
         <span>Event Title</span>
         <input v-model="editedEvent.event.title">
 
-        <span>Event text</span>
-        <p v-for="(paragraph, index) in editedEvent.event.text"
-        :key="index">
-            <textarea v-model="editedEvent.event.text[index].paragraph" />
-            <button
-            @click="toggleConditionManager(index)">Add conditions</button>
+        <paragraphs-editor :paragraphs="editedEvent.event.text" />
 
-            <section id="conditionManager">
-                <condition-manager :conditions="editedEvent.event.text[index].conditions"
-                :uniqueKey="`paragraph${index} ` + uniqueKey"/>
-            </section>
-
-            <button @click="deleteParagraph(index)">Delete paragraph</button>
-        </p>
-
-        <span v-show="editedEvent.event.text"><button
-        @click="addNewParagraph()">
-            + Paragraph
-        </button></span>
+        <options-editor :options="editedEvent.event.options" />
 
         <span><button @click="saveEditedEvent()">
             Save Event
@@ -30,10 +14,10 @@
 </template>
 
 <script>
-import ConditionManager from './ConditionManager.vue'
-import { mapGetters, mapMutations } from 'vuex'
-import Vue from 'vue'
+import { mapMutations } from 'vuex'
 
+import ParagraphsEditor from './EventEditor/ParagraphsEditor.vue'
+import OptionsEditor from './EventEditor/OptionsEditor.vue'
 
 export default {
     name: 'EventEditor',
@@ -41,27 +25,8 @@ export default {
     props: ['editedEvent', 'paragraphData'],
 
     components: {
-        ConditionManager
-    },
-
-
-    computed: {
-        ...mapGetters([
-            'paragraphTemplate'
-        ]),
-
-        uniqueKey() {
-            let key = `in event ${this.editedEvent.meta.name}`
-            if (this.editedEvent.meta.upperScene) {
-                key += ` in Scene ${this.editedEvent.meta.upperScene}`
-            }
-            if (this.editedEvent.meta.upperChapter) {
-                key += ` in Chapter ${this.editedEvent.meta.upperChapter}`
-            }
-            key += ` in Project ${this.editedEvent.meta.upperProject}`
-
-            return key
-        }
+        ParagraphsEditor,
+        OptionsEditor
     },
 
 
@@ -70,19 +35,9 @@ export default {
             'saveCurrentEditedEvent'
         ]),
 
-        addNewParagraph() {
-            this.editedEvent.event.text.push(this.paragraphTemplate)
-
-            Vue.set(this.paragraphData, this.paragraphData.length, { conditionManager: false })
-        },
-
         deleteParagraph(index) {
             this.editedEvent.event.text.splice(index, 1)
             this.paragraphData.splice(index, 1)
-        },
-
-        toggleConditionManager(index) {
-            this.paragraphData[index].conditionManager = !this.paragraphData[index].conditionManager
         },
 
         saveEditedEvent() {
@@ -108,5 +63,9 @@ p {
 textarea {
     height: 100px;
     width: 100%
+}
+
+.event-editor-section {
+    border-top: 4px lightblue solid;
 }
 </style>
